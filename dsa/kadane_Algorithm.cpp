@@ -47,31 +47,63 @@ void file()
 }
 void solve()
 {
-    vector<string> v2 = {"rrrrrg", "grgbbb", "brbggr", "rgbrrr", "gbrbbb"};
-
-    // vector<string> v2 = {"000001", "101222", "202110", "012000", "120222"};
-
-    int N = v2.size();
-    int M = v2[0].length();
-    for (int i = 0; i < N; i++)
+    // int arr[8] = {-2, -3, 4, -1, -2, 1, 5, -3};
+    int n = 3;
+    int arr[n] = {0, 1, 0};
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < M; j++)
+        if (arr[i] == 0)
+            arr[i] = 1;
+        else if (arr[i] == 1)
         {
-            if (v2[i][j] == 'r')
-                v2[i][j] = '0';
-            if (v2[i][j] == 'g')
-                v2[i][j] = '1';
-            if (v2[i][j] == 'b')
-                v2[i][j] = '2';
+            arr[i] = -1;
         }
     }
-    print("hi");
-    nline;
-    trav(v2)
+    for (int i = 0; i < n; i++)
     {
-        print(x);
-        nline;
+        print(arr[i]);
     }
+    nline;
+    int maxi = 0;
+    int sum_upto_i = 0;
+    int start = 0;
+    int end = 7;
+
+    for (int i = 0; i < n; i++)
+    {
+        print(arr[i]);
+        nline;
+        sum_upto_i = sum_upto_i + arr[i];
+        if (maxi < sum_upto_i)
+        {
+
+            maxi = sum_upto_i;
+            end = i;
+        }
+        if (sum_upto_i < 0)
+        {
+
+            sum_upto_i = 0;
+        }
+    }
+    int sum = maxi;
+    int j = end;
+    linebreak;
+    while (j >= 0)
+    {
+        deb(j);
+        deb(sum);
+        sum -= arr[j];
+        if (sum == 0)
+            start = j;
+        j--;
+    }
+
+    debline(maxi);
+    print(j);
+    deb(start);
+    print(end);
+    nline;
 }
 int main()
 {
