@@ -47,7 +47,43 @@ void file()
 }
 void solve()
 {
-    print("hello world");
+    vector<int> v = {5, 1, 4, 3, 6, 8, 10, 7, 9};
+    vector<int> maxi(v.size(), INT_MIN);
+    vector<int> mini(v.size(), INT_MAX);
+    int n = v.size();
+    int maxx = INT_MIN, minn = INT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        if (maxx < v[i])
+        {
+            deb(v[i]);
+            maxx = v[i];
+        }
+        maxi[i] = maxx;
+        if (minn > v[n - i - 1])
+        {
+            deb(v[n - i - 1]);
+            minn = v[n - 1 - i];
+        }
+        mini[n - 1 - i] = minn;
+    }
+    trav(maxi) print(x);
+    nline;
+
+    linebreak;
+    trav(mini) print(x);
+    nline;
+
+    for (int i = 1; i < v.size() - 1; i++)
+    {
+        if (v[i] > maxi[i - 1] and v[i] < mini[i + 1])
+        {
+
+            deb("yes");
+            return;
+        }
+    }
+    deb("no");
 }
 int main()
 {

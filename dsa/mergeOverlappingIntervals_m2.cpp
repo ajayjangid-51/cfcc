@@ -45,9 +45,41 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+struct Interval
+{
+    int start;
+    int end;
+    Interval() : start(0), end(0) {}
+    Interval(int s, int e) : start(s), end(e) {}
+};
 void solve()
 {
-    print("hello world");
+    Interval i1(1, 3), i2(2, 6), i3(8, 10), i4(15, 18);
+    vector<Interval> v = {i1, i3, i4, i2};
+    sort(v.begin(), v.end(), [](const Interval &i1, const Interval &i2)
+         { return i1.start < i2.start; });
+    trav(v)
+    {
+        print(x.start);
+        print(x.end);
+        nline;
+    }
+    vector<Interval> ans;
+    ans.push_back(v[0]);
+    for (int i = 1; i < v.size(); i++)
+    {
+        if (v[i].start <= ans.back().end)
+            ans.back().end = max(ans.back().end, v[i].end);
+        else
+            ans.push_back(v[i]);
+    }
+    linebreak;
+    trav(ans)
+    {
+        print(x.start);
+        print(x.end);
+        nline;
+    }
 }
 int main()
 {

@@ -47,30 +47,16 @@ void file()
 }
 void solve()
 {
-    vector<string> v2 = {"rrrrrg", "grgbbb", "brbggr", "rgbrrr", "gbrbbb"};
-
-    // vector<string> v2 = {"000001", "101222", "202110", "012000", "120222"};
-
-    int N = v2.size();
-    int M = v2[0].length();
-    for (int i = 0; i < N; i++)
+    vi v = {10, 4, 8, 13, 20};
+    int k = 2;
+    int maxi = INT_MIN;
+    int sum = 0;
+    for (int i = 0; i < k; i++)
+        sum += v[i];
+    for (int i = k - 1; i < v.size(); i++)
     {
-        for (int j = 0; j < M; j++)
-        {
-            if (v2[i][j] == 'r')
-                v2[i][j] = '0';
-            if (v2[i][j] == 'g')
-                v2[i][j] = '1';
-            if (v2[i][j] == 'b')
-                v2[i][j] = '2';
-        }
-    }
-    print("hi");
-    nline;
-    trav(v2)
-    {
-        print(x);
-        nline;
+        if (maxi < sum)
+            maxi = sum;
     }
 }
 int main()

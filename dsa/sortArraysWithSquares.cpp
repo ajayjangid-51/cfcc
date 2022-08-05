@@ -47,7 +47,26 @@ void file()
 }
 void solve()
 {
-    print("hello world");
+    vi v = {-992, 113};
+    vi arr(1000100, 0);
+    trav(v)
+    {
+
+        int y = x * x;
+        deb(y);
+        // deb(y);
+        arr[y] = y;
+    }
+    vi ans;
+    trav(arr)
+    {
+        if (x != 0)
+            ans.push_back(x);
+    }
+    linebreak;
+    trav(ans) print(x);
+    linebreak;
+    print("hello ji");
 }
 int main()
 {
