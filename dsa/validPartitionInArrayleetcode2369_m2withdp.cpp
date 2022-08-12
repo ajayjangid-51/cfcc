@@ -45,71 +45,46 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
+bool isValid(int l, int r, vi &v)
 {
-     if(j>=v.size()) return 0;
-
-    if (j - i == 1)
+    print(l);
+    print(r);
+    nline;
+    if (l + 1 == r)
     {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
+        return v[l] == v[r];
     }
     else
     {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
+        if (v[l] == v[l + 1] and v[l] == v[r])
+            return 1;
+        else if (v[l] == v[l + 1] - 1 and v[l + 1] == v[r] - 1)
+            return 1;
     }
-
     return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
 }
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    vi v = {4, 4, 4, 5, 6};
+    vb store(v.size(), 0);
+    if (isValid(0, 1, v))
+        store[1] = 1;
+    if (v.size() >= 3 and isValid(0, 2, v))
+        store[2] = 1;
+    if (isValid(2, 1, v))
+        store[2] = 1;
+
+    for (int i = 3; i < v.size(); i++)
+    {
+        if (isValid(i - 1, i, v))
+            store[i] = store[i] or store[i - 2];
+        if (isValid(i - 2, i, v))
+            store[i] = store[i] or store[i - 3];
+    }
+    nline;
+    trav(store) print(x);
+    nline;
+    debline(store.back());
 }
 int main()
 {

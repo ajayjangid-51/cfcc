@@ -45,71 +45,39 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
-{
-     if(j>=v.size()) return 0;
-
-    if (j - i == 1)
-    {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
-    }
-
-    return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
-}
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    vvi v = {{10, 20}, {40, 100}, {200, 210}, {20, 230}};
+    vector<pair<int, int>> store(v.size() + 1);
+    store[0] = {0, 0};
+    store[1] = {v[0][0], v[0][1]};
+    for (int i = 1; i < v.size(); i++)
+    {
+        int j = i + 1;
+        store[j].first = v[i][0] + max(store[j - 1].first, store[j - 1].second);
+        store[j].second = v[i][1] + max(store[j - 2].first, store[j - 2].second);
+    }
+    deb(store[v.size()].first);
+    deb(store[v.size()].second);
+    vector<pair<int, int>> v = {{10, 20}, {40, 100}, {200, 210}, {20, 230}};
+    int n = v.size();
+
+    vector<vector<int>> dp(n, vector<int>(3, 0));
+    // dp[i][0]: no ride on i'th day
+    // dp[i][1]: in-city ride on i'th day
+    // dp[i][2]: inter-city ride on i'th day
+
+    dp[0][0] = 0;
+    dp[0][1] = v[0].first;
+    dp[0][2] = v[0].second;
+    for (int i = 1; i < n; i++)
+    {
+        dp[i][0] = max({dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]});
+        dp[i][1] = max({dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]}) + v[i].first;
+        dp[i][2] = dp[i - 1][0] + v[i].second;
+    }
+    int ans = max({dp[n - 1][0], dp[n - 1][1], dp[n - 1][2]});
+    deb(ans);
 }
 int main()
 {

@@ -45,71 +45,42 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
-{
-     if(j>=v.size()) return 0;
-
-    if (j - i == 1)
-    {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
-    }
-
-    return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
-}
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    // vi A = {20, 50, 113};
+    vi A = {52, 695, 700, 319};
+    // vi A = {444, 994, 508, 72, 125, 299, 181, 238, 354, 223, 691, 249, 838, 890, 758, 675, 424, 199, 201, 788, 609, 582, 979, 259, 901, 371, 766, 759, 983, 728, 220, 16, 158, 822, 515, 488, 846, 321, 908, 469, 84, 460, 961, 285, 417, 142, 952, 626, 916, 247, 116, 975, 202, 734, 128, 312, 499, 274, 213, 208, 472, 265, 315, 335, 205, 784, 708, 681, 160, 448, 365, 165, 190, 693, 606, 226, 351, 241, 526, 311, 164, 98, 422, 363, 103, 747, 507, 669, 153, 856, 701, 319, 695, 52};
+
+    int n = A.size();
+    for (int i = n - 2; i >= 0; i--)
+    {
+        int t = -1;
+        for (int j = i + 1; j < n; j++)
+        {
+            if (A[j] > A[i])
+            {
+                if (t == -1)
+                    t = j;
+                else
+                {
+                    if (A[t] > A[j])
+                        t = j;
+                }
+            }
+        }
+        if (t != -1)
+        {
+            swap(A[i], A[t]);
+            sort(A.begin() + i + 1, A.end());
+            trav(A) print(x);
+            linebreak1;
+            return;
+        }
+    }
+    reverse(A.begin(), A.end());
+    trav(A) print(x);
+
+    return;
 }
 int main()
 {

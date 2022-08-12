@@ -2,7 +2,7 @@
 using namespace std;
 
 #define f first
-#define s second
+// #define s second
 #define lb lower_bound
 #define ub upper_bound
 #define sz(x) x.size()
@@ -45,72 +45,75 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
+void dfs(int i, string &s, vi &ans, vb &visited, int k, int n, vi &anss)
 {
-     if(j>=v.size()) return 0;
+    // print("😀");
+    // deb(i);
+    // deb(k);
 
-    if (j - i == 1)
-    {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
-    }
+    // deb(k);
 
-    return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
+    visited[i] = 1;
+    ans.push_back(i);
+    // print("👉");
+    // trav(ans) print(x);
+    // print("👈");
+    // nline;
+    if (k >= s.size())
+    {
+        anss = ans;
+        return;
+    }
+    for (int j = 1; j <= n; j++)
+    {
+        if (j != i)
+        {
+            if (s[k] == 'D')
+            {
+                if (j < i and !visited[j])
+                {
+                    k++;
+                    dfs(j, s, ans, visited, k, n, anss);
+                    k--;
+                }
+            }
+            else
+            {
+                if (j > i and !visited[j])
+                {
+                    k++;
+                    dfs(j, s, ans, visited, k, n, anss);
+                    k--;
+                }
+            }
+        }
+        // linebreak1;
+    }
+    visited[i] = 0;
+    ans.pop_back();
 }
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    string s("DDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+    int n = s.size() + 1;
+    deb(n);
+    for (int i = 1; i <= n; i++)
+    {
+        int k = 0;
+        vi ans;
+        vb visited(n, 0);
+        vi anss;
+        dfs(i, s, ans, visited, k, n, anss);
+
+        if (anss.size() == n)
+        {
+            trav(anss) print(x);
+            nline;
+            break;
+        }
+    }
 }
+
 int main()
 {
     io_faster

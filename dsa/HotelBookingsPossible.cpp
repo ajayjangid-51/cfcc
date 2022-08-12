@@ -45,71 +45,50 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
+bool fn(const pair<int, char> &a, const pair<int, char> &b)
 {
-     if(j>=v.size()) return 0;
-
-    if (j - i == 1)
+    if (a.first == b.first)
     {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
+        return a.second > b.second;
     }
-    else
-    {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
-    }
-
-    return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
+    return a.first < b.first;
 }
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    // vi A = {9, 47, 17, 39, 35, 35, 20, 18, 15, 34, 11, 2, 45, 46, 15, 33, 47, 47, 10, 11, 27};
+    // vi B = {32, 82, 39, 86, 81, 58, 64, 53, 40, 76, 40, 46, 63, 88, 56, 52, 50, 72, 22, 19, 38};
+    vi A = {1, 2, 3};
+    vi B = {2, 3, 4};
+    vector<pair<int, char>> v;
+    for (int i = 0; i < A.size(); i++)
+    {
+        v.push_back({A[i], 's'});
+        v.push_back({B[i], 'e'});
+    }
+    sort(v.begin(), v.end(), fn);
+    trav(v)
+    {
+        print(x.first);
+        print(x.second);
+        nline;
+    }
+    int maxi = 0;
+    int cnt = 0;
+    trav(v)
+    {
+        if (maxi < cnt)
+        {
+
+            maxi = cnt;
+            deb(maxi);
+        }
+
+        if (x.second == 's')
+            cnt++;
+        else
+            cnt--;
+    }
+    debline(maxi);
 }
 int main()
 {

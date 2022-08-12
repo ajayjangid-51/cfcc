@@ -45,71 +45,27 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-bool fn(int i, int j, vi &v)
-{
-     if(j>=v.size()) return 0;
-
-    if (j - i == 1)
-    {
-        if (v[i] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        if (v[i] == v[i + 1] and v[i + 1] == v[j])
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else if (v[i] == v[i + 1] - 1 and v[i + 1] == v[j] - 1)
-        {
-            if (j == v.size() - 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return fn(j + 1, j + 2, v) or fn(j + 1, j + 3, v);
-            }
-        }
-        else
-            return 0;
-    }
-
-    return 0;
-}
-void fn2(vi &nums)
-{
-    bool anss = fn(0, 1, nums) or fn(0, 2, nums);
-    debline(anss);
-}
 void solve()
 {
-    // vi v = {4, 4, 4, 5, 6};
-    vi v = {1, 1, 1, 2};
-    // vi v = {923198, 923198, 701131, 701132};
-    // bool ans = fn(0, 1, v) or fn(0, 2, v);
-    // deb(ans);
-    fn2(v);
+    vi A = {1, 1, 3, 3};
+    // vi A = {3, 2, 1, 3};
+    // vi A = {-4, -2, 0, -1, -6};
+    sort(A.begin(), A.end());
+    trav(A) print(x);
+    nline;
+    for (int i = 0; i < A.size(); i++)
+    {
+        if (A[i + 1] == A[i])
+            continue;
+        int cnt = A.size() - (i + 1);
+        if (A[i] == cnt)
+        {
+            deb("1");
+            return;
+        }
+    }
+    deb("-1");
+    return;
 }
 int main()
 {
