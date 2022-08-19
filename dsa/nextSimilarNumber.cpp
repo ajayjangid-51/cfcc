@@ -18,17 +18,17 @@ using namespace std;
 #define pii pair<int, int>
 #define endl "\n"
 #define nline cout << "\n"
-#define range(v) v.begin(), v.end()
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -48,20 +48,40 @@ void file()
 }
 void solve()
 {
-    // string s1("ylbnaz"), s2("yawfjwzkw");
-    // string s1("y-l-bnaz"), s2("yawf-jw-zkw");
-    // string s1("212"), s2("21-3");
-    // string s1("2-6-9-5-8-5"), s2("0-9-4-6-4-8");
-    // string s1("2-6-9-5-8-5"), s2("2-8-2-7-9-7-6");
-    // vs v = {"7-6-9-0-5", "2-6-9-5-8-5", "0-9-4-6-4-8", "8-2-7-9-7-6"};
-    vs v = {"dj9-7-6-9-0-5", "zp1-2-6-9-5-8-5", "il3-0-9-4-6-4-8", "mf2-8-2-7-9-7-6"};
-    sort(range(v));
-    trav(v) print(x);
-    nline;
-    vi v1 = {76905, 269585, 94648, 827976};
-    sort(range(v1));
-    trav(v1) print(x);
-    nline;
+    string A("218765");
+    // string A("576");
+    // string A("892795");
+    int indx = -1;
+    int n = A.size();
+    deb(n);
+    for (int i = n - 1; i >= 1; i--)
+    {
+        if (A[i - 1] < A[i])
+        {
+            indx = i - 1;
+            break;
+        }
+    }
+    char mini = A[indx + 1];
+    int mindx = indx + 1;
+
+    for (int i = indx + 1; i < n; i++)
+    {
+        if (A[i] < mini and A[i] > A[indx])
+        {
+            mini = A[i];
+            mindx = i;
+        }
+    }
+    deb(mini);
+    deb(indx);
+    deb(mindx);
+    swap(A[indx], A[mindx]);
+    linebreak1;
+    trav(A) print(x);
+    linebreak1;
+    sort(A.begin() + (indx + 1), A.end());
+    trav(A) print(x);
 }
 int main()
 {

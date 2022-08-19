@@ -18,17 +18,17 @@ using namespace std;
 #define pii pair<int, int>
 #define endl "\n"
 #define nline cout << "\n"
-#define range(v) v.begin(), v.end()
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -48,21 +48,26 @@ void file()
 }
 void solve()
 {
-    // string s1("ylbnaz"), s2("yawfjwzkw");
-    // string s1("y-l-bnaz"), s2("yawf-jw-zkw");
-    // string s1("212"), s2("21-3");
-    // string s1("2-6-9-5-8-5"), s2("0-9-4-6-4-8");
-    // string s1("2-6-9-5-8-5"), s2("2-8-2-7-9-7-6");
-    // vs v = {"7-6-9-0-5", "2-6-9-5-8-5", "0-9-4-6-4-8", "8-2-7-9-7-6"};
-    vs v = {"dj9-7-6-9-0-5", "zp1-2-6-9-5-8-5", "il3-0-9-4-6-4-8", "mf2-8-2-7-9-7-6"};
-    sort(range(v));
-    trav(v) print(x);
-    nline;
-    vi v1 = {76905, 269585, 94648, 827976};
-    sort(range(v1));
-    trav(v1) print(x);
-    nline;
+    vector<vs> A = {{"Bob", "90"}, {"Bob", "80"}, {"Alice", "90.5"}, {"Alice", "10.1"}};
+    string s("1000089.81");
+    int i = stoi(s);
+    deb(i);
+    map<string, pair<int, int>> mp;
+    for (auto x : A)
+    {
+        mp[x[0]] = {mp[x[0]].first + stoi(x[1]), mp[x[0]].second + 1};
+    }
+    int maxi = INT_MIN;
+
+    trav(mp) print(x.first), print(x.second.first), print(","), print(x.second.second), nline;
+    for (auto x : mp)
+    {
+        maxi = max(maxi, (x.second.first / x.second.second));
+    }
+    deb(maxi);
+    deb(INT_MAX);
 }
+
 int main()
 {
     io_faster
