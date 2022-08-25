@@ -21,13 +21,14 @@ using namespace std;
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -45,61 +46,47 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+int findIndex(int n, int &k)
+{
+    if (n == 1)
+        return 0;
+    n = n - 1;
+    int pn = n;
+    while (pn <= k and n > 1)
+    {
+        pn = pn * (n - 1);
+        n--;
+    }
+    int index = k / pn;
+    k = k % pn;
+    return index;
+}
+vi fn(int n, int k)
+{
+    set<int> s;
+    k = k - 1;
+    for (int i = 1; i <= n; i++)
+        s.insert(i);
+    auto it = s.begin();
+    vi ans;
+
+    for (int i = 0; i < n; i++)
+    {
+        int index = findIndex(n - i, k);
+        advance(it, index);
+        ans.push_back(*it);
+        s.erase(it);
+        it = s.begin();
+    }
+    return ans;
+}
 void solve()
 {
-    map<char, int> mp;
-    mp['A'] = 1;
-    mp['B'] = 2;
-    mp['C'] = 3;
-    mp['D'] = 4;
-    mp['E'] = 5;
-    mp['F'] = 6;
-    mp['G'] = 7;
-    mp['H'] = 8;
-    mp['I'] = 9;
-    mp['J'] = 10;
-    mp['K'] = 11;
-    mp['L'] = 12;
-    mp['M'] = 12;
-    mp['N'] = 14;
-    mp['O'] = 15;
-    mp['P'] = 16;
-    mp['Q'] = 17;
-    mp['R'] = 18;
-    mp['S'] = 19;
-    mp['T'] = 20;
-    mp['U'] = 21;
-    mp['V'] = 22;
-    mp['W'] = 23;
-    mp['X'] = 24;
-    mp['Y'] = 25;
-    mp['Z'] = 26;
-
-    // string s("ZZZB");
-    string s("CAA");
-    int ans = 0;
-    for (int i = 1; i < s.size(); i++)
-    {
-
-        ans += pow(26, i);
-        deb(ans);
-    }
-    linebreak;
-    deb(ans);
-    for (int i = 0; i < s.size() - 1; i++)
-    {
-        int t = mp[s[i]] - 1;
-        for (int j = i + 1; j < s.size(); j++)
-        {
-            t *= 26;
-        }
-        ans += t;
-    }
-    deb(ans);
-    ans += mp[s.back()];
-    deb(ans);
-
-    debline(ans);
+    int n = 4, k = 9;
+    vi ans = fn(n, k);
+    linebreak1;
+    trav(ans) print(x);
+    linebreak1;
 }
 int main()
 {

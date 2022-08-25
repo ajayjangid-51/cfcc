@@ -21,13 +21,14 @@ using namespace std;
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -47,59 +48,27 @@ void file()
 }
 void solve()
 {
-    map<char, int> mp;
-    mp['A'] = 1;
-    mp['B'] = 2;
-    mp['C'] = 3;
-    mp['D'] = 4;
-    mp['E'] = 5;
-    mp['F'] = 6;
-    mp['G'] = 7;
-    mp['H'] = 8;
-    mp['I'] = 9;
-    mp['J'] = 10;
-    mp['K'] = 11;
-    mp['L'] = 12;
-    mp['M'] = 12;
-    mp['N'] = 14;
-    mp['O'] = 15;
-    mp['P'] = 16;
-    mp['Q'] = 17;
-    mp['R'] = 18;
-    mp['S'] = 19;
-    mp['T'] = 20;
-    mp['U'] = 21;
-    mp['V'] = 22;
-    mp['W'] = 23;
-    mp['X'] = 24;
-    mp['Y'] = 25;
-    mp['Z'] = 26;
-
-    // string s("ZZZB");
-    string s("CAA");
-    int ans = 0;
-    for (int i = 1; i < s.size(); i++)
+    int A = 943566;
+    // vector<char> ans;
+    string ans;
+    while (A != 0)
     {
-
-        ans += pow(26, i);
-        deb(ans);
-    }
-    linebreak;
-    deb(ans);
-    for (int i = 0; i < s.size() - 1; i++)
-    {
-        int t = mp[s[i]] - 1;
-        for (int j = i + 1; j < s.size(); j++)
+        int index = A % 26;
+        // char c = 'A' + (index - 1);
+        if (index == 0)
         {
-            t *= 26;
+            ans = 'Z' + ans;
+            A = (A / 26) - 1;
         }
-        ans += t;
+        else
+        {
+            ans = char('A' + (index - 1)) + ans;
+            A /= 26;
+        }
     }
-    deb(ans);
-    ans += mp[s.back()];
-    deb(ans);
-
     debline(ans);
+    linebreak1;
+    trav(ans) print(x);
 }
 int main()
 {

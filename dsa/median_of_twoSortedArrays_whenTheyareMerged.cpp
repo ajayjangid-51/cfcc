@@ -21,13 +21,14 @@ using namespace std;
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -47,59 +48,63 @@ void file()
 }
 void solve()
 {
-    map<char, int> mp;
-    mp['A'] = 1;
-    mp['B'] = 2;
-    mp['C'] = 3;
-    mp['D'] = 4;
-    mp['E'] = 5;
-    mp['F'] = 6;
-    mp['G'] = 7;
-    mp['H'] = 8;
-    mp['I'] = 9;
-    mp['J'] = 10;
-    mp['K'] = 11;
-    mp['L'] = 12;
-    mp['M'] = 12;
-    mp['N'] = 14;
-    mp['O'] = 15;
-    mp['P'] = 16;
-    mp['Q'] = 17;
-    mp['R'] = 18;
-    mp['S'] = 19;
-    mp['T'] = 20;
-    mp['U'] = 21;
-    mp['V'] = 22;
-    mp['W'] = 23;
-    mp['X'] = 24;
-    mp['Y'] = 25;
-    mp['Z'] = 26;
-
-    // string s("ZZZB");
-    string s("CAA");
-    int ans = 0;
-    for (int i = 1; i < s.size(); i++)
+    // vi A = {1, 3, 4, 7, 8, 10, 13};
+    // vi B = {5, 8, 9, 11, 13, 15};
+    vi A = {1, 4, 5};
+    vi B = {2, 3};
+    int i1 = 0, j1 = A.size() - 1;
+    int i2 = 0, j2 = B.size() - 1;
+    int median1 = 0, median2 = 0;
+    int mid1 = 0, mid2 = 0;
+    while (i1 <= j1 or i2 <= j2)
     {
+        int sz1 = (j1 - i1) + 1;
+        int sz2 = (j2 - i2) + 1;
+        // deb(sz1);
+        // deb(sz2);
 
-        ans += pow(26, i);
-        deb(ans);
-    }
-    linebreak;
-    deb(ans);
-    for (int i = 0; i < s.size() - 1; i++)
-    {
-        int t = mp[s[i]] - 1;
-        for (int j = i + 1; j < s.size(); j++)
+        if (sz1 & 1)
         {
-            t *= 26;
+            median1 = A[sz1 / 2];
+            mid1 = sz1 / 2;
         }
-        ans += t;
+        else
+        {
+            mid1 = sz1 / 2;
+            median1 = (A[(sz1 / 2) - 1] + A[(sz1 / 2)]) / 2;
+        }
+        if (sz2 & 1)
+        {
+            mid2 = sz2 / 2;
+            median2 = B[sz2 / 2];
+        }
+        else
+        {
+            mid2 = sz2 / 2;
+            // deb(B[(sz2 / 2) - 1]);
+            // deb(B[sz2 / 2]);
+            median2 = (B[(sz2 / 2) - 1] + B[(sz2 / 2)]) / 2;
+        }
+        // deb(median1);
+        // deb(median2);
+        if (median1 < median2)
+        {
+            i1 = mid1 + 1;
+            j2 = mid2 - 1;
+        }
+        else
+        {
+            j1 = mid1 - 1;
+            i2 = mid2 + 1;
+        }
     }
-    deb(ans);
-    ans += mp[s.back()];
-    deb(ans);
-
-    debline(ans);
+    deb(median1);
+    deb(median2);
+    deb(i1);
+    deb(j1);
+    deb(i2);
+    deb(j2);
+    print("ans");
 }
 int main()
 {

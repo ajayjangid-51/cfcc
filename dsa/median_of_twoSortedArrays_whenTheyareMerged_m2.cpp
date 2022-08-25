@@ -21,13 +21,14 @@ using namespace std;
 #define print(x) cout << x << " "
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
+#define range(arr) arr.begin(), arr.end()
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
 #define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak cout << "_______________________________" \
-                       << "\n"                              \
-                          "\n"
+#define linebreak1 cout << "_______________________________" \
+                        << "\n"                              \
+                           "\n"
 #define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define forn(i, start, n) for (auto i = start; i < n; i++)
 #define io_faster                     \
@@ -47,59 +48,39 @@ void file()
 }
 void solve()
 {
-    map<char, int> mp;
-    mp['A'] = 1;
-    mp['B'] = 2;
-    mp['C'] = 3;
-    mp['D'] = 4;
-    mp['E'] = 5;
-    mp['F'] = 6;
-    mp['G'] = 7;
-    mp['H'] = 8;
-    mp['I'] = 9;
-    mp['J'] = 10;
-    mp['K'] = 11;
-    mp['L'] = 12;
-    mp['M'] = 12;
-    mp['N'] = 14;
-    mp['O'] = 15;
-    mp['P'] = 16;
-    mp['Q'] = 17;
-    mp['R'] = 18;
-    mp['S'] = 19;
-    mp['T'] = 20;
-    mp['U'] = 21;
-    mp['V'] = 22;
-    mp['W'] = 23;
-    mp['X'] = 24;
-    mp['Y'] = 25;
-    mp['Z'] = 26;
+    // vi A = {1, 3, 4, 7, 10, 12};
+    // vi B = {2, 3, 6, 15};
+    vi A = {1, 4, 5};
+    vi B = {2, 3};
+    int m = A.size(), n = sz(B);
+    print(m), print(n);
+    int l1 = ((m + n) / 2) - 2;
 
-    // string s("ZZZB");
-    string s("CAA");
-    int ans = 0;
-    for (int i = 1; i < s.size(); i++)
-    {
+    int l2 = 0, r1 = l1 + 1, r2 = l2 + 1;
+    deb(l1);
+    deb(l2);
+    deb(r1);
+    deb(r2);
 
-        ans += pow(26, i);
-        deb(ans);
-    }
-    linebreak;
-    deb(ans);
-    for (int i = 0; i < s.size() - 1; i++)
+    while (1)
     {
-        int t = mp[s[i]] - 1;
-        for (int j = i + 1; j < s.size(); j++)
+        if ((A[l1] < B[r2]) and (B[l2] < A[r1]))
         {
-            t *= 26;
+            int ans = (max(A[l1], B[l2]) + min(A[r1], B[r2])) / 2;
+            if ((m + n) & 1)
+                ans = min(A[r1], B[r2]);
+            deb(ans);
+            return;
         }
-        ans += t;
+        else
+        {
+            l1--;
+            l2++;
+            r1 = l1 + 1;
+            r2 = l2 + 1;
+        }
     }
-    deb(ans);
-    ans += mp[s.back()];
-    deb(ans);
-
-    debline(ans);
+    deb("😀");
 }
 int main()
 {
