@@ -1,8 +1,1 @@
-max_area = 0
-1 max_area = 0
-maxi = 0
-2 max_area = 0
-maxi = 0
-3 max_area = 0
-maxi = 0
-👉Line-111: ans = 0
+5 30 

@@ -40,6 +40,7 @@
 		"string_view": "cpp",
 		"regex": "cpp",
 		"cmath": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"stdio.h": "c"
 	}
 }
