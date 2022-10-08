@@ -20,16 +20,6 @@ using namespace std;
 #define trav(a) for (auto x : a)
 #define trav2(a) for (auto y : a)
 #define range(arr) arr.begin(), arr.end()
-#define leftpoint "👈"
-#define rightpoint "👉"
-#define downpoint "👇"
-#define uppoint "👆"
-#define fire "🔥"
-#define star "⭐"
-#define smile "😃"
-#define smile2 "👺"
-#define debline(x) cout << "👉Line-" << __LINE__ << ": " << #x << " = " << x << endl
-#define linebreak2(x) cout << "🟢" << #x << " = " << x << "________________🟢 " << endl
 #define all(x) x.begin() x.end()
 #define deb(x) cout << #x << " = " << x << endl
 #define debpair(pair) cout << #pair << ".first = " << pair.first << " " << #pair << ".second = " << pair.second << endl
@@ -54,14 +44,19 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    int n;
+    cin >> n;
+    int ans = (n - 3) / 3;
+    ans--;
+    cout << ans;
+    nline;
 }
 int main()
 {
     io_faster
     file();
     int t = 1;
-    //	cin >> t;
+    cin >> t;
     while (t--)
     {
         solve();

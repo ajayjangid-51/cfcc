@@ -54,7 +54,48 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    vvi v = {
+        {0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 1},
+        {1, 1, 0, 1, 0},
+
+    };
+    int n = sz(v);
+    int m = sz(v[0]);
+    vvi store = v;
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            store[i][j] = v[i][j] + store[i - 1][j];
+        }
+    }
+    linebreak1;
+    trav(store)
+    {
+        sort(range(x), greater<int>());
+        trav2(x) print(y);
+        nline;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        sort(range(store[i]), greater<int>());
+    }
+    int maxi = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            print(i), print(j), nline;
+            deb(store[i][j]);
+            print(store[i][j]);
+            int areaa = store[i][j] * (j + 1);
+            deb(areaa);
+            maxi = max(maxi, (store[i][j] * (j + 1)));
+        }
+        nline;
+    }
+    debline(maxi);
 }
 int main()
 {

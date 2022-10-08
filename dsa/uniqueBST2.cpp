@@ -52,9 +52,75 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(NULL), right(NULL) {}
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    TreeNode(int x, TreeNode *l, TreeNode *r) : val(x), left(l), right(r) {}
+};
+
+vector<TreeNode *> fn(vector<int> v)
+{
+    int n = v.size();
+    if (n == 1)
+    {
+        return {new TreeNode(v[0])};
+    }
+    if (n == 0)
+        return {NULL};
+    vvi left(n);
+    vvi right(n);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i != j)
+            {
+                if (v[j] < v[i])
+                    left[i].push_back(v[j]);
+                else
+                    right[i].push_back(v[j]);
+            }
+        }
+    }
+    vector<vector<TreeNode *>> leftNodes(n);
+    vector<vector<TreeNode *>> rightNodes(n);
+    for (int i = 0; i < n; i++)
+    {
+        leftNodes[i] = fn(left[i]);
+        rightNodes[i] = fn(right[i]);
+    }
+    vector<TreeNode *> ans;
+    for (int i = 0; i < n; i++)
+    {
+        trav(leftNodes[i])
+        {
+            TreeNode *a = new TreeNode(v[i]);
+            a->left = x;
+            trav2(rightNodes[i])
+            {
+                TreeNode *a2 = new TreeNode(v[i]);
+                a2->left = a->left;
+                a2->right = y;
+                ans.push_back(a2);
+            }
+        }
+    }
+    return ans;
+}
 void solve()
 {
-    print(smile);
+    int n = 3;
+    vi v = {1, 2, 3, 4};
+    vector<TreeNode *> ans = fn(v);
+    deb(ans.size()); // trav(ans)
+    // {
+    //     print(x->val);
+    //     nline;
+    // }
 }
 int main()
 {

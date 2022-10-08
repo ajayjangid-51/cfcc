@@ -54,7 +54,69 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    // string s("    -5892with okk");
+    string s("-91283472332");
+    deb(INT_MAX);
+    deb(INT_MIN);
+    long long ans = 0;
+    int neg = 1;
+    bool done1 = 0, done2 = 0;
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] > '9' or s[i] < '0')
+        {
+            print(smile);
+            if (!done1 and !done2)
+            {
+
+                if (s[i] == ' ')
+                    continue;
+                else if (s[i] == '-')
+                {
+
+                    // ans = -ans;
+                    neg = -1;
+                    done2 = 1;
+                    continue;
+                }
+                else if (s[i] == '+')
+                {
+                    done2 = 1;
+                    continue;
+                }
+                else
+                    break;
+            }
+            if (!done2)
+            {
+                if (s[i] == '-')
+                {
+
+                    ans = -ans;
+                    done2 = 1;
+                    continue;
+                }
+                else if (s[i] == '+')
+                {
+                    done2 = 1;
+                    continue;
+                }
+                else
+                    break;
+            }
+            else
+                break;
+        }
+        elsee
+        {
+            done1 = 1;
+            int tmp = s[i] - 48;
+            deb(ans);
+            // ans = (ans * 10) + tmp;
+            ans = ((ans % LONG_LONG_MAX) * 10LL) % LONG_LONG_MAX + (long long)tmp;
+        }
+    }
+    debline(ans * neg);
 }
 int main()
 {

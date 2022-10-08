@@ -54,7 +54,24 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    vi v = {5, 3, 7, 10};
+    int n = sz(v);
+    vvi store(n, vi(n, 0));
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = j; i >= 0; i--)
+        {
+            if (i == j)
+                store[i][j] = v[i];
+            else if (j == (i + 1))
+                store[i][j] = max(v[i], v[j]);
+            else
+            {
+                store[i][j] = max(v[i] + min(store[i + 2][j], store[i + 1][j - 1]), v[j] + min(store[i + 1][j - 1], store[i][j - 2]));
+            }
+        }
+    }
+    debline(store[0][n - 1]);
 }
 int main()
 {

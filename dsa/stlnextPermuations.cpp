@@ -54,7 +54,13 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    vi v = {1, 2, 3};
+    while (next_permutation(range(v)))
+
+    {
+        trav(v) print(x);
+        nline;
+    }
 }
 int main()
 {

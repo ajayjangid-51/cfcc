@@ -52,9 +52,82 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(NULL) {}
+    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
 void solve()
 {
-    print(smile);
+    ListNode *v1 = new ListNode(2);
+    v1->next = new ListNode(4);
+    v1->next->next = new ListNode(3);
+    v1->next->next->next = new ListNode(6);
+
+    ListNode *v2 = new ListNode(5);
+    v2->next = new ListNode(6);
+    v2->next->next = new ListNode(7);
+
+    ListNode *p = v1;
+    while (p)
+        print(p->val), p = p->next;
+    p = v2;
+    nline;
+    while (p)
+        print(p->val), p = p->next;
+
+    nline;
+    ListNode *v3 = new ListNode(-1);
+    ListNode *p1 = v1, *p2 = v2;
+    int carry = 0;
+    //   int sum = p1->val+p2->val+carry;
+    //     if(sum>9) carry = sum%9 , sum%=9;
+    //     v3 = new ListNode(sum);
+    p = v3;
+
+    while (p1 and p2)
+    {
+        int sum = p1->val + p2->val + carry;
+        if (sum > 9)
+            carry = 1;
+        else
+            carry = 0;
+        // deb(sum);
+        // deb(sum % 10);
+        p->next = new ListNode(sum % 10);
+        p = p->next;
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+    while (p1)
+    {
+        int sum = p1->val + carry;
+        if (sum > 9)
+            carry = 1;
+        else
+            carry = 0;
+        p->next = new ListNode(sum % 10);
+        p = p->next;
+        p1 = p1->next;
+    }
+    while (p2)
+    {
+        int sum = p2->val + carry;
+        if (sum > 9)
+            carry = 1;
+        else
+            carry = 0;
+
+        p->next = new ListNode(sum % 10);
+        p = p->next;
+        p2 = p2->next;
+    }
+    p = v3->next;
+    while (p)
+        print(p->val), p = p->next;
 }
 int main()
 {

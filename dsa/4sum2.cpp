@@ -54,7 +54,36 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    vi v1 = {0, 1, -1}, v2 = {-1, 1, 0}, v3 = {0, 0, 1}, v4 = {-1, 1, 1};
+
+    map<int, int> mp;
+    int n = v1.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            mp[v3[i] + v4[j]]++;
+    trav(mp)
+    {
+        print(x.first);
+        print("-");
+        print(x.second);
+        nline;
+    }
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            int rsum = -(v1[i] + v2[j]);
+            deb(rsum);
+
+            if (mp.find(rsum) != mp.end())
+            {
+                ans += mp[rsum];
+                // mp.erase(rsum);
+            }
+        }
+    }
+    debline(ans);
 }
 int main()
 {

@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -54,7 +55,44 @@ void file()
 }
 void solve()
 {
-    print(smile);
+    vi v = {-1, 0, 1, 2, -1, -4};
+    sort(range(v));
+    trav(v) print(x);
+    nline;
+    vvi ans;
+    for (int k = 0; k < v.size() - 2; k++)
+    {
+        int t = v[k];
+
+        while (v[k + 1] == t)
+            continue;
+        int i = k + 1, j = v.size() - 1;
+        int rsum = -v[k];
+        while (i < j)
+        {
+            if ((v[i] + v[j]) == rsum)
+            {
+
+                vi tv = {v[k], v[i], v[j]};
+                ans.push_back(tv);
+
+                int t1 = v[i], t2 = v[j];
+                i++;
+                j--;
+
+                while (v[i] == t1)
+                    i++;
+                while (v[j] == t2)
+                    j--;
+            }
+            else if (v[i] + v[j] < rsum)
+                i++;
+            else
+                j--;
+        }
+    }
+
+    trav(ans) trav2(x) print(y);
 }
 int main()
 {
