@@ -52,26 +52,33 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-int pldrm(int x)
-{
-    int p = x % 10;
-    x /= 10;
-    p = (p * 10) + (x % 10);
-    return p;
-}
 void solve()
 {
-    // string A("23:59");
-    string A("05:51");
-    int a = int(A[0] - '0');
-    a = (a * 10) + int(A[1] - '0');
-    deb(a);
-    int b = int(A[3] - '0');
-    b = (b * 10) + int(A[4] - '0');
-    deb(b);
-
-    deb(pldrm(a));
-    deb(pldrm(b));
+    string s = ",131,3,,83,,";
+    int num = 0;
+    vector<int> ans;
+    for (int i = 0; i < sz(s);)
+    {
+        if (s[i] == ',')
+        {
+            deb(i);
+            ans.push_back(num);
+            deb(num);
+            num = 0;
+            i++;
+            continue;
+        }
+        while (s[i] != ',' and i <= s.size())
+        {
+            int tmp = s[i] - 48;
+            num = num * 10 + tmp;
+            // deb(num);
+            i++;
+        }
+    }
+    linebreak1;
+    trav(ans) print(x);
+    linebreak1;
 }
 int main()
 {

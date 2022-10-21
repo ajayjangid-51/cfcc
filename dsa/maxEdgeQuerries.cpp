@@ -43,6 +43,7 @@ using namespace std;
     cout.tie(0);
 
 const int MOD = 1000000007;
+// 1000000007
 double PI = 4 * atan(1);
 
 void file()
@@ -52,26 +53,67 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-int pldrm(int x)
+stack<int> stk;
+int maxi;
+void dfs(pii p, map<int, vector<pii>> &mp, vi &store, vector<bool> &visited)
 {
-    int p = x % 10;
-    x /= 10;
-    p = (p * 10) + (x % 10);
-    return p;
+    visited[p.first] = 1;
+    linebreak1;
+    deb(p.first);
+    stk.push(p.second);
+
+    stack<int> stk3 = stk;
+    while (!stk3.empty())
+    {
+        print(stk3.top());
+        stk3.pop();
+    }
+    linebreak1;
+    stack<int> stk2 = stk;
+    maxi = INT_MIN;
+    while (!stk2.empty())
+    {
+        maxi = max(stk2.top(), maxi);
+        stk2.pop();
+    }
+    debline(maxi);
+    store[p.first] = maxi;
+    for (auto x : mp[p.first])
+    {
+        if (!visited[x.first])
+        {
+
+            dfs(x, mp, store, visited);
+        }
+    }
+    if (!stk.empty())
+        stk.pop();
 }
 void solve()
 {
-    // string A("23:59");
-    string A("05:51");
-    int a = int(A[0] - '0');
-    a = (a * 10) + int(A[1] - '0');
-    deb(a);
-    int b = int(A[3] - '0');
-    b = (b * 10) + int(A[4] - '0');
-    deb(b);
+    vvi v = {{1, 2, 11}, {1, 3, 1}, {2, 4, 12}, {2, 5, 100}};
+    vvi q = {{3, 5}, {2, 3}};
+    maxi = INT_MIN;
+    map<int, vector<pair<int, int>>> mp;
+    for (int i = 0; i < sz(v); i++)
+    {
+        mp[v[i][0]].push_back({v[i][1], v[i][2]});
+        mp[v[i][1]].push_back({v[i][0], v[i][2]});
+    }
+    int n = sz(v) + 1;
+    deb(n);
+    vi store(n + 1, 0);
+    vb visited(n + 1, 0);
+    dfs({1, 0}, mp, store, visited);
+    linebreak1;
+    trav(store) print(x);
+    linebreak1;
 
-    deb(pldrm(a));
-    deb(pldrm(b));
+    for (int i = 0; i < sz(q); i++)
+    {
+        int ans = max(store[q[i][0]], store[q[i][1]]);
+        deb(ans);
+    }
 }
 int main()
 {

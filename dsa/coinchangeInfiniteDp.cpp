@@ -52,27 +52,45 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-int pldrm(int x)
-{
-    int p = x % 10;
-    x /= 10;
-    p = (p * 10) + (x % 10);
-    return p;
-}
 void solve()
 {
-    // string A("23:59");
-    string A("05:51");
-    int a = int(A[0] - '0');
-    a = (a * 10) + int(A[1] - '0');
-    deb(a);
-    int b = int(A[3] - '0');
-    b = (b * 10) + int(A[4] - '0');
-    deb(b);
+    int coins[3] = {1, 2, 3};
+    int N = 3;
+    int sum = 4;
 
-    deb(pldrm(a));
-    deb(pldrm(b));
+    long long tsum = 0;
+    for (int i = 0; i < N; i++)
+        tsum += coins[i];
+    vector<vector<int>> dp(N + 1, vector<int>(tsum + 1, 0));
+    for (int i = 0; i <= N; i++)
+    {
+        dp[i][0] = 1;
+    }
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= tsum; j++)
+        {
+            if (j - coins[i - 1] >= 0)
+            {
+                dp[i][j] += dp[i][j - coins[i - 1]];
+            }
+            if (i - 1 >= 0)
+            {
+                dp[i][j] += dp[i - 1][j];
+            }
+        }
+    }
+    deb(dp[N][sum]);
+
+    linebreak1;
+    trav(dp)
+    {
+        trav2(x) print(y);
+        nline;
+    }
+    linebreak1;
 }
+
 int main()
 {
     io_faster

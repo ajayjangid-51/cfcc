@@ -52,26 +52,36 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
-int pldrm(int x)
-{
-    int p = x % 10;
-    x /= 10;
-    p = (p * 10) + (x % 10);
-    return p;
-}
 void solve()
 {
-    // string A("23:59");
-    string A("05:51");
-    int a = int(A[0] - '0');
-    a = (a * 10) + int(A[1] - '0');
-    deb(a);
-    int b = int(A[3] - '0');
-    b = (b * 10) + int(A[4] - '0');
-    deb(b);
+    vector<int> A = {39, 70, 13, 68, 100, 36, 95, 4, 12, 23, 34, 74, 65, 42, 12, 54, 69, 48, 45, 63, 58};
+    int B = 38;
+    vector<vector<bool>> store(A.size(), vector<bool>(B + 1, 0));
+    if (A[0] <= B)
+        store[0][A[0]] = 1;
+    store[0][0] = 1;
 
-    deb(pldrm(a));
-    deb(pldrm(b));
+    for (int i = 1; i < A.size(); i++)
+    {
+        store[i][0] = 1;
+        for (int j = 1; j <= B; j++)
+        {
+            // store[i][j] = 0;
+            bool a = 0, b = 0;
+            if ((j - A[i]) >= 0 and (j - A[i]) <= B)
+                a = store[i - 1][j - A[i]];
+            if (A[i] <= B)
+                b = store[i - 1][j];
+            store[i][j] = a or b;
+        }
+    }
+
+    trav(store)
+    {
+        trav2(x) print(y);
+        nline;
+    }
+    debline(store[(A.size()) - 1][B]);
 }
 int main()
 {
