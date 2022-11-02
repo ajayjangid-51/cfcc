@@ -54,23 +54,33 @@ void file()
 }
 void solve()
 {
-    string s("1221");
-    vi ans;
-    for (int i = 0; i < sz(s); i++)
-    {
-        ans.push_back(int(s[i]) - '0');
-    }
-    linebreak1;
-    trav(ans) print(x);
-    linebreak1;
+    int A = 5;
+    int n = A;
 
-    string s2;
-    for (int i = 0; i < sz(s); i++)
+    vi v;
+    // v.push_back(5);
+    // v.push_back(3);
+    v.push_back(A % 10);
+    A /= 10;
+    if (A)
+        v.push_back(A);
+    int cry = 0;
+    while (--n)
     {
-        s2.push_back(char(ans[i]) + '0');
+        for (int i = 0; i < v.size(); i++)
+        {
+            int prd = (n * v[i]) + cry;
+            v[i] = prd % 10;
+            cry = prd / 10;
+        }
+        while (cry)
+        {
+            v.push_back(cry % 10);
+            cry /= 10;
+        }
     }
     linebreak1;
-    trav(s2) print(x);
+    trav(v) print(x);
     linebreak1;
 }
 int main()

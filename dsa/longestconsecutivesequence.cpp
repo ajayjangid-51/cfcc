@@ -54,24 +54,77 @@ void file()
 }
 void solve()
 {
-    string s("1221");
-    vi ans;
-    for (int i = 0; i < sz(s); i++)
+    // vi A = {-10, -6, 100, 4, 200, -7, -8, 3, 1, -9, 2};
+    vi A = {100, 4, 200, -7, -8, 3, 1, -9, 2, -1, -2};
+    int n = 300;
+    bool v[n] = {0};
+    bool v2[n] = {0};
+    for (auto x : A)
     {
-        ans.push_back(int(s[i]) - '0');
-    }
-    linebreak1;
-    trav(ans) print(x);
-    linebreak1;
+        if (x <= 0)
+        {
+            v2[abs(x)] = 1;
+        }
+        else
+        {
 
-    string s2;
-    for (int i = 0; i < sz(s); i++)
-    {
-        s2.push_back(char(ans[i]) + '0');
+            v[x] = 1;
+        }
     }
-    linebreak1;
-    trav(s2) print(x);
-    linebreak1;
+    int maxi = 0;
+    int t = 0;
+    int i = n;
+    bool flag1 = 1, flag2 = 0;
+    while (flag1 or flag2)
+    {
+
+        if (flag1)
+        {
+            if (v2[i])
+            {
+                if (i == 0)
+                    print(smile);
+
+                t++;
+            }
+            else
+            {
+                maxi = max(maxi, t);
+                t = 0;
+            }
+            if (i == 0)
+            {
+                debline(t);
+            }
+            i--;
+
+            if (i < 0)
+            {
+                flag1 = 0;
+                flag2 = 1;
+                i = 1;
+            }
+        }
+        else
+        {
+            if (v[i])
+            {
+                t++;
+            }
+            else
+            {
+                maxi = max(maxi, t);
+                t = 0;
+            }
+            i++;
+            if (i >= n)
+            {
+                flag2 = 0;
+                break;
+            }
+        }
+    }
+    debline(maxi);
 }
 int main()
 {

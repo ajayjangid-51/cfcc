@@ -52,26 +52,37 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+set<pii> s;
+int cnt = 0;
+bool cmp(int a, int b)
+{
+    print(a), print(b), nline;
+    if (a > b)
+    {
+        // print(a), print(b), print(rightpoint), nline;
+
+        return 1; // return ka mtlb "haan yeh sahi voh sahi hai toh mtlb aseh hi rhnedo" jaise hai waise hi rhendo
+    }
+
+    else
+    {
+        s.insert({a, b});
+        cnt++;
+        print(smile);
+        return 0;
+    }
+}
 void solve()
 {
-    string s("1221");
-    vi ans;
-    for (int i = 0; i < sz(s); i++)
-    {
-        ans.push_back(int(s[i]) - '0');
-    }
-    linebreak1;
-    trav(ans) print(x);
-    linebreak1;
+    // vi v = {2, 4, 1, 3, 5};
+    vi v = {84, 2, 37, 3, 67, 82, 19, 97, 91, 63, 27, 6, 13, 90, 63, 89, 100, 60, 47, 96, 54, 26, 64, 50, 71, 16, 6, 40, 84, 93, 67, 85, 16, 22, 60};
+    sort(range(v), cmp);
 
-    string s2;
-    for (int i = 0; i < sz(s); i++)
-    {
-        s2.push_back(char(ans[i]) + '0');
-    }
     linebreak1;
-    trav(s2) print(x);
+    trav(v) print(x);
     linebreak1;
+    debline(s.size());
+    debline(cnt);
 }
 int main()
 {

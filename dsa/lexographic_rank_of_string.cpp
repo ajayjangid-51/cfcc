@@ -52,26 +52,55 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+int facto(int n)
+{
+    if (n == 0 or n == 1)
+        return 1;
+    return n * facto(n - 1);
+}
 void solve()
 {
-    string s("1221");
-    vi ans;
-    for (int i = 0; i < sz(s); i++)
-    {
-        ans.push_back(int(s[i]) - '0');
-    }
-    linebreak1;
-    trav(ans) print(x);
-    linebreak1;
+    string s("sadasdsasassasas");
 
-    string s2;
+    int ans = 0;
     for (int i = 0; i < sz(s); i++)
     {
-        s2.push_back(char(ans[i]) + '0');
+        int cnt = 0;
+        for (int j = i + 1; j < sz(s); j++)
+        {
+            if (s[j] < s[i])
+            {
+                // deb(s[j]);
+                cnt++;
+            }
+        }
+        int d_count[52] = {0};
+        for (int j = i; j < sz(s); j++)
+        {
+            if (s[j] >= 'A' and s[j] <= 'Z')
+            {
+                d_count[int(s[j]) - 65]++;
+            }
+            else
+            {
+                d_count[(s[j] - 97) + 26]++;
+            }
+        }
+        // nline;
+        // for (int k = 0; k < 52; k++)
+        //     print(d_count[k]);
+        // nline;
+
+        int d_fact = 1;
+        for (auto x : d_count)
+        {
+            d_fact *= facto(x);
+        }
+        // deb(d_fact);
+        ans = ans + ((cnt * (facto(sz(s) - (i + 1)))) / (d_fact));
+        // deb(ans);
     }
-    linebreak1;
-    trav(s2) print(x);
-    linebreak1;
+    debline(ans);
 }
 int main()
 {
@@ -82,6 +111,12 @@ int main()
     while (t--)
     {
         solve();
+        // char c = 'A';
+        // deb(c);
+        // deb(int(c));
+        // char d = 'a';
+        // deb(d);
+        // deb(int(d)); // deb(
     }
     return 0;
 }
