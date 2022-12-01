@@ -54,9 +54,32 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    vi v = {1, 3, -1, -3, 5, 3, 6, 7};
+    int n = v.size();
+    int k = 3;
+    deque<pair<int, int>> dq;
+    vi ans;
+
+    for (int i = 0; i < n; i++)
+    {
+        while (!dq.empty() and dq.back().first < v[i])
+        {
+            dq.pop_back();
+        }
+        dq.push_back({v[i], i});
+
+        if (i >= (k - 1))
+        {
+            while (!dq.empty() and !(dq.front().second >= (i - (k - 1)) and dq.front().second <= i))
+            {
+                dq.pop_front();
+            }
+            ans.push_back(dq.front().first);
+        }
+    }
+    linebreak1;
+    trav(ans) print(x);
+    linebreak1;
 }
 int main()
 {

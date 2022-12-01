@@ -52,11 +52,97 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+void dfs(TreeNode *node)
+{
+    if (!node)
+        return;
+    print(node->val);
+    dfs(node->left);
+    dfs(node->right);
+}
+string serialize(TreeNode *root)
+{
+    queue<TreeNode *> q;
+    vector<int> v;
+    q.push(root);
+    while (!q.empty())
+    {
+        TreeNode *t = q.front();
+        q.pop();
+        if (t)
+            v.push_back(t->val);
+        else
+        {
+            v.push_back(INT_MIN);
+            continue;
+        };
+        if (t->left)
+            q.push(t->left);
+        else
+            q.push(NULL);
+        if (t->right)
+            q.push(t->right);
+        else
+            q.push(NULL);
+    }
+    linebreak1;
+    trav(v) print(x);
+    linebreak1;
+    string s;
+    trav(v)
+    {
+        if (x == INT_MIN)
+            s += "N,";
+        else
+        {
+
+            s += (to_string(x) + ",");
+        }
+    }
+    print(s);
+    return s;
+}
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    TreeNode *root = new TreeNode(131);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->right->left = new TreeNode(4);
+    root->right->right = new TreeNode(553);
+
+    string s = serialize(NULL);
+    debline(s);
+    /*  vector<int> v;
+     string t;
+     for (int i = 0; i < s.size(); i++)
+     {
+         t.clear();
+         while (s[i] != ',')
+         {
+             t.push_back(s[i++]);
+         }
+         // deb(t);
+         if (t == "N")
+         {
+             v.push_back(INT_MIN);
+         }
+         else
+         {
+
+             int t2 = stoi(t);
+             v.push_back(t2);
+         }
+     }
+     linebreak1;
+     trav(v) print(x);
+     linebreak1; */
 }
 int main()
 {

@@ -54,9 +54,69 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    // string s("aa"), p("a*");
+    // string s("ab"), p(".*");
+    // string s("aab"), p("c*a*b");
+    // string s("mississippi"), p("mis*is*p*.");
+    string s("aasdfasdfasdfasdfas"), p("aasdf.*");
+    // asdf.*asdf.*asdf.*s
+
+    int m = p.size();
+    int n = s.size();
+    s = " " + s;
+    p = " " + p;
+    vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, 0));
+    dp[0][0] = 1;
+    for (int i = 1; i <= m; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
+            if (p[i] == '*')
+            {
+                print(i), print(j), nline;
+                char prev = p[i - 1];
+                deb(prev);
+                if (prev == '.')
+                {
+                    dp[i][j] = dp[i - 2][j];
+                    if (j != 0)
+                        dp[i][j] = dp[i][j] or dp[i][j - 1];
+                }
+                else
+                {
+                    dp[i][j] = dp[i - 2][j];
+                    if (prev == s[j])
+                    {
+                        if (j != 0)
+                            dp[i][j] = dp[i][j] or dp[i][j - 1];
+                    }
+                }
+            }
+            else
+            {
+                if (p[i] == '.')
+                {
+                    if (j != 0)
+                    {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }
+                }
+                else if (p[i] == s[j])
+                {
+
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+            }
+        }
+    }
+    // return dp[m][n];
+    linebreak1;
+    trav(dp)
+    {
+        trav2(x) print(y);
+        nline;
+    }
+    linebreak1;
 }
 int main()
 {

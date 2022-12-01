@@ -52,11 +52,58 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+int dfs(int i, int j, vvi &v, vvi &dp)
+{
+    int n = v.size();
+    int m = v[0].size();
+    if (dp[i][j])
+        return dp[i][j];
+
+    int ans = 1;
+    vvi dir = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    for (int k = 0; k < 4; k++)
+    {
+        int i1 = i + dir[k][0];
+        int j1 = j + dir[k][1];
+        if (i1 < 0 or j1 < 0 or i1 >= n or j1 >= m)
+        {
+            continue;
+        }
+        if (v[i1][j1] <= v[i][j])
+        {
+            continue;
+        }
+        ans = max(ans, dfs(i1, j1, v, dp) + 1);
+    }
+    return dp[i][j] = ans;
+}
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    vvi v = {{9, 9, 4}, {6, 6, 8}, {2, 1, 1}};
+    int n = v.size();
+    if (!n)
+    {
+        debline("0");
+        return;
+    }
+    int m = v[0].size();
+    vvi dp(n, vi(m, 0));
+    int maxi = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            int ans = dp[i][j];
+            if (!dp[i][j])
+            {
+
+                ans = dfs(i, j, v, dp);
+            }
+            maxi = max(maxi, ans);
+            // debline(ans);
+        }
+    }
+    debline(maxi);
 }
 int main()
 {

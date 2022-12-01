@@ -54,9 +54,30 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    // vi v = {3, 4, -1, 1};
+    vi v = {1, 5, 3, 4, 523, 0};
+    int n = v.size();
+    //  ans will be in range from 1 to n+1;
+    for (int i = 0; i < n; i++)
+    {
+        if (v[i] > 0 and v[i] <= n)
+        {
+            if (v[v[i] - 1] != v[i])
+            {
+                swap(v[v[i] - 1], v[i]);
+                i--;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (v[i] != i + 1)
+        {
+            debline(i + 1);
+            return;
+        }
+    }
+    debline(n + 1);
 }
 int main()
 {

@@ -54,9 +54,7 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    vi v = {5, 2, 6, 1};
 }
 int main()
 {

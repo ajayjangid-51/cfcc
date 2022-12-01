@@ -54,9 +54,49 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    // vi v = {1, 3, 5, -3, 5, 3, 6, 7};
+    vi v = {1, 3, -1, -3, 5, 3, 6, 7};
+    stack<int> stk;
+    stk.push(0);
+    int n = v.size();
+    vi nxg(n, INT_MAX);
+    for (int i = 1; i < n; i++)
+    {
+        while (!stk.empty() and v[stk.top()] < v[i])
+        {
+            nxg[stk.top()] = i;
+            stk.pop();
+        }
+        stk.push(i);
+    }
+    linebreak1;
+    trav(nxg) print(x);
+    linebreak1;
+    int k = 3;
+    vector<int> ans;
+    int j = 0;
+
+    for (int i = 0; i < (n - k + 1); i++)
+    {
+        if (j < i)
+            j = i;
+        int maxi = v[i];
+        if (nxg[i] < (i + k))
+        {
+
+            maxi = v[nxg[i]];
+            j = nxg[i];
+        }
+        while (j < (i + k))
+        {
+            maxi = v[j];
+            j = nxg[j];
+        }
+        ans.push_back(maxi);
+    }
+    linebreak1;
+    trav(ans) print(x);
+    linebreak1;
 }
 int main()
 {

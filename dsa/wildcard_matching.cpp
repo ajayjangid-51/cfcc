@@ -54,9 +54,48 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    // string s("aa"),  p("*");
+    string s("cb"), p("?a");
+    int m = p.size(), n = s.size();
+    s = " " + s;
+    p = " " + p;
+    vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, 0));
+    dp[0][0] = 1;
+    for (int i = 1; i < m + 1; i++)
+    {
+        for (int j = 0; j < n + 1; j++)
+        {
+            if (p[i] == '*')
+            {
+                dp[i][j] = dp[i - 1][j];
+                deb(dp[i][j]);
+                if (j != 0)
+                    dp[i][j] = dp[i][j] or dp[i][j - 1];
+            }
+            else
+            {
+                if (p[i] == '?')
+                {
+                    if (j != 0)
+                        dp[i][j] = dp[i - 1][j - 1];
+                }
+                else
+                {
+
+                    if (p[i] == s[j])
+                        if (j != 0)
+                            dp[i][j] = dp[i - 1][j - 1];
+                }
+            }
+        }
+    }
+    linebreak1;
+    trav(dp)
+    {
+        trav2(x) print(y);
+        nline;
+    }
+    linebreak1;
 }
 int main()
 {

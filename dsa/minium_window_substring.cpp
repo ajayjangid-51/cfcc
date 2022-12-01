@@ -54,8 +54,75 @@ void file()
 }
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
+    string s("ADOBECODEBANC"), t("ABC");
+    // string s("abc"), t("b");
+    int cnt = 0;
+    int i = 0, j = 0;
+    map<char, int> m1, m2;
+    trav(t)
+    {
+        m2[x]++;
+    }
+    string ans;
+    trav(m2) print(x.first), print(x.second), nline;
+    while (i < s.size())
+    {
+        print("hi"); // acquiring
+        if (cnt < t.size())
+        {
+            m1[s[i]]++;
+            if (m1[s[i]] <= m2[s[i]])
+            {
+                cnt++;
+            }
+            if (cnt != t.size())
+                i++;
+        }
+        deb(j);
+        deb(i);
+
+        // releasing
+        while (cnt == t.size())
+        {
+
+            // string ss = s.substr(j, (i - j) + 1);
+            /*    string ss;
+               for (int k = j; k <= i; k++)
+               {
+                   ss.push_back(s[k]);
+               }
+
+               deb(ss);
+               if (ans.size() == 0 or ans.size() > ss.size())
+               {
+
+                   ans = ss;
+                   debline(ans);
+               } */
+            m1[s[j]]--;
+            // if (m1[s[j]] < 0)
+            //     m1[s[j]] = 0;
+            deb(s[j]);
+            deb(m1[s[j]]);
+            deb(m2[s[j]]);
+
+            if (m1[s[j]] < m2[s[j]])
+            {
+                cnt--;
+                i++;
+                // break;
+            }
+            j++;
+        }
+    }
+    deb(j);
+    deb(i);
+    string ss;
+    for (int k = j - 1; k < i - 1; k++)
+    {
+        ss.push_back(s[k]);
+    }
+
     debline(ss);
 }
 int main()

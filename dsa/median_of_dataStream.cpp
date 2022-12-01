@@ -52,11 +52,94 @@ void file()
     freopen("output.txt", "w", stdout);
 #endif
 }
+/* class MedianFinder
+{
+public:
+    MedianFinder(){};
+    void addNum(){
+
+    };
+    double findMedian(){
+
+    };
+}; */
+
+priority_queue<int> l;
+priority_queue<int, vector<int>, greater<int>> r;
+void addNum(int x)
+{
+    if (l.size() == 0)
+    {
+        l.push(x);
+        return;
+    }
+    // if (r.size() == 0)
+    // {
+
+    //     r.push(x);
+    //     return;
+    // }
+    if (l.size() == r.size())
+    {
+        // try to push it in left:
+        if (x <= r.top())
+        {
+            l.push(x);
+        }
+        else
+        {
+            int t = r.top();
+            r.pop();
+            l.push(t);
+            r.push(x);
+        }
+    }
+    else
+    {
+        // try to push it in right;
+        if (x >= l.top())
+        {
+            r.push(x);
+        }
+        else
+        {
+            int t = l.top();
+            l.pop();
+            r.push(t);
+            l.push(x);
+        }
+    }
+}
+double findMedian()
+{
+    if (l.size() == r.size())
+    {
+        double m = (l.top() + r.top()) / 2.0;
+        return m;
+    }
+    else
+        return l.top() / 1.0;
+}
 void solve()
 {
-    string s("abcde");
-    string ss = s.substr(2, 3, 0);
-    debline(ss);
+    // vi v = {2, 4};
+    // trav(v) addNum(x);
+    // deb(findMedian());
+    // addNum(5);
+    // addNum(7);
+    // // addNum(3);
+    // deb(findMedian());
+
+    addNum(-1);
+    deb(findMedian());
+    addNum(-2);
+    deb(findMedian());
+    addNum(-3);
+    deb(findMedian());
+    addNum(-4);
+    deb(findMedian());
+    addNum(-5);
+    deb(findMedian());
 }
 int main()
 {
